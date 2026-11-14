@@ -2,6 +2,38 @@
 
 给零基础的人用的中文写歌 skill：从一个故事或一句想说的话，到一首能写进 Suno / 海绵音乐的歌词和提示词。一个 skill 走完，不需要懂乐理，也不需要会写词。
 
+## 安装
+
+**方法一：一行命令**（电脑上需要有 Node.js）
+
+```
+npx skills add yyue5578-coder/story-to-song
+```
+
+按提示选择要装到哪个 agent（Claude Code、Codex、Cursor 等）即可。
+
+**方法二：手动下载**
+
+1. 点本页右上方绿色的 **Code → Download ZIP**，解压。
+2. 把解压出来的文件夹改名为 `story-to-song`。
+3. 放进你的 agent 的 skills 目录，例如：
+   - Claude Code：`~/.claude/skills/`
+   - Codex：`~/.codex/skills/`
+   - WorkBuddy：`~/.workbuddy/skills/`
+
+装好后直接对 agent 说「我想写首歌」「帮我写首歌给我妈」就会触发。
+
+**可选：歌词校验脚本**
+
+`scripts/check_lyrics.py` 用来检查押韵、句长、AI 味和多音字读音，需要 Python 3；读音检查还要先装 pypinyin：
+
+```
+pip3 install pypinyin
+python3 story-to-song/scripts/check_lyrics.py 歌词定稿.md --min-rate 0.6
+```
+
+不装也能用，写词流程照常走，只是少了自动检查这一步。
+
 ## 能做什么
 
 1. **提问**：按场景和感觉问，一次最多 3 个问题；用户没有具体事件时问小碎片，不替用户编。
@@ -27,14 +59,6 @@ story-to-song/
   knowledge_base/      场景规律、配比统计、说明（单曲拆解不附带）
   scripts/             check_lyrics.py（需要 Python 3；读音检查用 pypinyin）
   templates/           创作注解模板、单曲拆解模板
-```
-
-## 使用
-
-把 `story-to-song` 目录放进你的 agent 的 skills 目录（如 `~/.claude/skills/` 或 `~/.workbuddy/skills/`）。校验脚本：
-
-```
-python3 story-to-song/scripts/check_lyrics.py 歌词定稿.md --min-rate 0.6
 ```
 
 ## 提醒
