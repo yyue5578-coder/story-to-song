@@ -1,0 +1,25 @@
+name: import-skill
+on:
+  push:
+    paths:
+      - .github/workflows/import.yml
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copy story-to-song from hidden-talent-finder@fb03207
+        run: |
+          set -euo pipefail
+          git clone --quiet https://github.com/yyue5578-coder/hidden-talent-finder.git /tmp/src
+          git -C /tmp/src checkout --quiet fb03207cf0d29e26a02fd0d13df5615958b7c63c
+          rm -f README.md
+          cp -R /tmp/src/story-to-song/. .
+          git rm --quiet .github/workflows/import.yml
+          git config user.name "yyue5578-coder"
+          git config user.email "yyue5578@gmail.com"
+          git add -A
+          git commit -m "Add story-to-song skill" -m "Assisted-by: Cindy (https://cindy.app)"
+          git push origin HEAD:main
